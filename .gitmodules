@@ -1,0 +1,6 @@
+[submodule "pcrglob/data"]
+	path = pcrglob/data
+	url = https://github.com/UU-Hydro/PCR-GLOBWB_input_example.git
+[submodule "wflow/data"]
+	path = wflow/data
+	url = https://github.com/openstreams/wflow.git
