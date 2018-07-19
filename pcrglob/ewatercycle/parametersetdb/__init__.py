@@ -1,6 +1,7 @@
 import configparser
-import requests
 from subprocess import check_call
+
+import requests
 
 
 class CaseConfigParser(configparser.ConfigParser):

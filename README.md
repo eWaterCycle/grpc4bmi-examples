@@ -13,6 +13,7 @@ docker build -t wflow-grpc4bmi wflow/
 
 Install dependencies
 ```
+sudo apt install subversion
 pip install -r requirements.txt
 ```
 

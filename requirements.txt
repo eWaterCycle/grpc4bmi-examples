@@ -3,3 +3,4 @@ git+https://github.com/eWaterCycle/grpc4bmi@write-output-as-user#egg=grpc4bmi
 jupyterlab
 matplotlib
 docker
+requests
