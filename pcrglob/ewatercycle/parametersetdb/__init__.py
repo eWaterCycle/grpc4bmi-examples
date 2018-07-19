@@ -4,6 +4,10 @@ from subprocess import check_call
 
 
 class CaseConfigParser(configparser.ConfigParser):
+    """Case sensitive config parser
+
+    See https://stackoverflow.com/questions/1611799/preserve-case-in-configparser
+    """
     def optionxform(self, optionstr):
         return optionstr
 
