@@ -1,0 +1,14 @@
+data: data/PEQ_Hupsel.dat
+parameters:
+  cW: 200
+  cV: 4
+  cG: 5e6
+  cQ: 10
+  cS: 4
+  dG0: 1250
+  cD: 1500
+  aS: 0.01
+  st: loamy_sand
+start: 2011120000
+end: 2012020000
+step: 1
