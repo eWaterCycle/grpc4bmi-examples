@@ -56,21 +56,45 @@ class Parameterset:
         return self.cfg.config
 
 
-class Parametersetdb():
+class Parametersetdb:
+    db = [{
+        'model': 'PCR-GLOBWB',
+        'name': 'RhineMeuse30min',
+        'datafiles': {
+            'format': 'svn',
+            'url': 'https://github.com/UU-Hydro/PCR-GLOBWB_input_example/trunk/RhineMeuse30min'
+        },
+        'config': {
+            'format': 'ini',
+            'url': 'https://github.com/UU-Hydro/PCR-GLOBWB_input_example/raw/master/RhineMeuse30min/ini_and_batch_files/rapid/setup_natural_test.ini'
+        }
+    }, {
+        'model': 'wflow',
+        'name': 'wflow_rhine_sbm',
+        'datafiles': {
+            'format': 'svn',
+            'url': 'https://github.com/openstreams/wflow/trunk/examples/wflow_rhine_sbm'
+        },
+        'config': {
+            'format': 'ini',
+            'url': 'https://github.com/openstreams/wflow/raw/master/examples/wflow_rhine_sbm/wflow_sbm.ini'
+        }
+    }]
+    configs = {
+        'ini': IniConfig
+    }
+    copiers = {
+        'svn': SubversionCopier
+    }
+
     def select(self, model, name):
-        if model == 'PCR-GLOBWB' and name == 'RhineMeuse30min':
-            return Parameterset(
-                SubversionCopier('https://github.com/UU-Hydro/PCR-GLOBWB_input_example/trunk/RhineMeuse30min'),
-                IniConfig(
-                    'https://github.com/UU-Hydro/PCR-GLOBWB_input_example/raw/master/RhineMeuse30min/ini_and_batch_files/rapid/setup_natural_test.ini'
-                )
-            )
-        elif model == 'wflow' and name == 'wflow_rhine_sbm':
-            return Parameterset(
-                SubversionCopier('https://github.com/openstreams/wflow/trunk/examples/wflow_rhine_sbm'),
-                IniConfig(
-                    'https://github.com/openstreams/wflow/raw/master/examples/wflow_rhine_sbm/wflow_sbm.ini'
-                )
-            )
-        else:
-            raise FileNotFoundError()
+        hits = [hit for hit in self.db if hit['model'] == model and hit['name'] == name]
+        if len(hits) == 0:
+            raise KeyError('Parameter set of model {0} and name {1} not found'.format(model, name))
+
+        hit = hits[0]
+
+        return Parameterset(
+            self.copiers[hit['datafiles']['format']](hit['datafiles']['url']),
+            self.configs[hit['config']['format']](hit['config']['url'])
+        )
