@@ -17,6 +17,14 @@ sudo apt install subversion
 pip install -r requirements.txt
 ```
 
+Install helper module
+
+```
+cd psfetch
+flit install -s
+cd ..
+```
+
 Run notebooks
 
 ```

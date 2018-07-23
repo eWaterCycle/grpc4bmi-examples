@@ -4,3 +4,4 @@ jupyterlab
 matplotlib
 docker
 requests
+flit
