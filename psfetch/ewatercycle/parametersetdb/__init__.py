@@ -13,30 +13,64 @@ class CaseConfigParser(configparser.ConfigParser):
         return optionstr
 
 
-class Parameterset():
-    config_source = 'https://github.com/UU-Hydro/PCR-GLOBWB_input_example/raw/master/RhineMeuse30min/ini_and_batch_files/rapid/setup_natural_test.ini'
-    datafiles_source = 'https://github.com/UU-Hydro/PCR-GLOBWB_input_example/trunk/RhineMeuse30min'
+class SubversionCopier:
+    def __init__(self, source):
+        self.source = source
 
-    def __init__(self):
-        self._init_config()
+    def save(self, target):
+        check_call(['svn', 'export', self.source, target])
+
+
+def fetch(url):
+    """Fetches text of url"""
+    r = requests.get(url)
+    r.raise_for_status()
+    return r.text
+
+
+class IniConfig:
+    config = CaseConfigParser(strict=False)
+
+    def __init__(self, source):
+        body = fetch(source)
+        self.config.read_string(body)
+
+    def save(self, target):
+        with open(target, 'w') as f:
+            self.config.write(f)
+
+
+class Parameterset:
+    def __init__(self, df, cfg):
+        self.df = df
+        self.cfg = cfg
 
     def save_datafiles(self, target):
-        check_call(['svn', 'export', self.datafiles_source, target])
+        self.df.save(target)
 
-    def _init_config(self):
-        self.config = CaseConfigParser()
-        r = requests.get(self.config_source)
-        r.raise_for_status()
-        self.config.read_string(r.text)
+    def save_config(self, target):
+        self.cfg.save(target)
 
-    def save_config(self, fn):
-        with open(fn, 'w') as f:
-            self.config.write(f)
+    @property
+    def config(self):
+        return self.cfg.config
 
 
 class Parametersetdb():
     def select(self, model, name):
         if model == 'PCR-GLOBWB' and name == 'RhineMeuse30min':
-            return Parameterset()
+            return Parameterset(
+                SubversionCopier('https://github.com/UU-Hydro/PCR-GLOBWB_input_example/trunk/RhineMeuse30min'),
+                IniConfig(
+                    'https://github.com/UU-Hydro/PCR-GLOBWB_input_example/raw/master/RhineMeuse30min/ini_and_batch_files/rapid/setup_natural_test.ini'
+                )
+            )
+        elif model == 'wflow' and name == 'wflow_rhine_sbm':
+            return Parameterset(
+                SubversionCopier('https://github.com/openstreams/wflow/trunk/examples/wflow_rhine_sbm'),
+                IniConfig(
+                    'https://github.com/openstreams/wflow/raw/master/examples/wflow_rhine_sbm/wflow_sbm.ini'
+                )
+            )
         else:
             raise FileNotFoundError()
