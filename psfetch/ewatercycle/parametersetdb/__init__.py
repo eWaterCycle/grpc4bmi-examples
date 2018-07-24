@@ -56,6 +56,18 @@ class Parameterset:
         return self.cfg.config
 
 
+models = {
+    'PCR-GLOBWB': {
+        'name': 'PCR-GLOBWB',
+        'docker': 'pcrg-grpc4bmi:latest',
+    },
+    'wflow': {
+        'name': 'wflow',
+        'docker': 'wflow-grpc4bmi:latest'
+    }
+}
+
+
 class Parametersetdb:
     db = [{
         'model': 'PCR-GLOBWB',
@@ -67,7 +79,7 @@ class Parametersetdb:
         'config': {
             'format': 'ini',
             'url': 'https://github.com/UU-Hydro/PCR-GLOBWB_input_example/raw/master/RhineMeuse30min/ini_and_batch_files/rapid/setup_natural_test.ini'
-        }
+        },
     }, {
         'model': 'wflow',
         'name': 'wflow_rhine_sbm',
@@ -78,7 +90,7 @@ class Parametersetdb:
         'config': {
             'format': 'ini',
             'url': 'https://github.com/openstreams/wflow/raw/master/examples/wflow_rhine_sbm/wflow_sbm.ini'
-        }
+        },
     }]
     configs = {
         'ini': IniConfig
