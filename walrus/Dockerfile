@@ -26,6 +26,7 @@ RUN mkdir /data
 WORKDIR /data
 
 ENV BMI_MODULE=walrus-bmi.r
+ENV BMI_CLASS=WalrusBmi
 ENV BMI_PORT=55555
 
 CMD ['/usr/bin/walrus-bmi-server.r']
