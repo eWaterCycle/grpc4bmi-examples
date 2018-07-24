@@ -14,7 +14,7 @@ RUN echo 'source("https://raw.githubusercontent.com/r-lib/remotes/master/install
 RUN git clone --recursive -b $(curl -L https://grpc.io/release) https://github.com/grpc/grpc && \
   cd /grpc && make -j 4 && make install && ldconfig && cd /
 
-RUN installGithub.r ClaudiaBrauer/WALRUS nfultz/grpc && install.r configr
+RUN installGithub.r ClaudiaBrauer/WALRUS nfultz/grpc && install.r configr R6
 
 RUN mkdir /opt/walrus-bmi
 
