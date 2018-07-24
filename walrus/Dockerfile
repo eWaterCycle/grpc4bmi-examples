@@ -12,23 +12,26 @@ RUN apt-get update \
 RUN echo 'source("https://raw.githubusercontent.com/r-lib/remotes/master/install-github.R")$value("r-lib/remotes")' | R --vanilla
 
 RUN git clone --recursive -b $(curl -L https://grpc.io/release) https://github.com/grpc/grpc && \
-  cd /grpc && make -j 4 && make install && ldconfig && cd /
+  cd /grpc && make -j 4 && cd third_party/protobuf && make install && cd - && make install && ldconfig && cd /
 
-RUN installGithub.r ClaudiaBrauer/WALRUS nfultz/grpc && install.r configr R6
+RUN install.r configr R6 && installGithub.r ClaudiaBrauer/WALRUS nfultz/grpc
 
 RUN mkdir /opt/walrus-bmi
 
-COPY bmi.proto /opt/walrus-bmi/bmi.proto
-COPY walrus-bmi-server.r /usr/bin/
+# for debug
+RUN apt update && apt install -y nano
+WORKDIR /opt/walrus-bmi
 
-RUN mkdir /data
+#RUN mkdir /data
 
-WORKDIR /data
+#WORKDIR /data
+
+COPY bmi.proto *.r /opt/walrus-bmi/
 
 ENV BMI_MODULE=walrus-bmi.r
 ENV BMI_CLASS=WalrusBmi
 ENV BMI_PORT=55555
 
-CMD ['/usr/bin/walrus-bmi-server.r']
+CMD ["/opt/walrus-bmi/bmi-server.r"]
 
 EXPOSE 55555

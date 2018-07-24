@@ -16,6 +16,10 @@ docker build -t ewatercycle/walrus-grpc4bmi .
 
 ```bash
 docker run -d ewatercycle/walrus-grpc4bmi
+wget https://github.com/grpc-ecosystem/polyglot/releases/download/v1.6.0/polyglot.jar
+echo '{}' | java -jar polyglot.jar --command=list_services --proto_discovery_root=$PWD
+echo '{}' | java -jar polyglot.jar --command=call --endpoint=172.17.0.5:55555 --full_method=bmi.BmiService/getComponentName --proto_discovery_root=$PWD --use_reflection=false
+
 ```
 
 Use client

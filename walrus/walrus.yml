@@ -9,6 +9,6 @@ parameters:
   cD: 1500
   aS: 0.01
   st: loamy_sand
-start: 2011120000
-end: 2012020000
+start: 367416 # 2011120000
+end: 368904 # 2012020000
 step: 1
