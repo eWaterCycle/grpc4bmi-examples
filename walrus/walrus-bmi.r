@@ -88,7 +88,7 @@ WalrusBmi <- R6Class(
     },
     getVarNBytes = function(name) {
         # grid size is 1x1x1 so same as single value
-        return(1 * self$getVarUnits(name));
+        return(self$getVarUnits(name));
     },
 
     getValue = function(name) {

@@ -99,7 +99,7 @@ impl$getVarGrid$f <- function(request) {
 
 impl$getVarType$f <- function(request) {
    type = model$getVarType(request$name)
-   new(bmi.GetVarTypeResponse, type=type)
+   new(bmi.GetVarTypeResponse, type=as.character(type))
 }
 
 impl$getVarItemSize$f <- function(request) {
