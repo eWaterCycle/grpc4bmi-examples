@@ -19,8 +19,12 @@ docker run -d ewatercycle/walrus-grpc4bmi
 wget https://github.com/grpc-ecosystem/polyglot/releases/download/v1.6.0/polyglot.jar
 echo '{}' | java -jar polyglot.jar --command=list_services --proto_discovery_root=$PWD
 echo '{}' | java -jar polyglot.jar --command=call --endpoint=172.17.0.5:55555 --full_method=bmi.BmiService/getComponentName --proto_discovery_root=$PWD --use_reflection=false
-
+echo '{config_file:"walrus.yml"}' | java -jar polyglot.jar --command=call --endpoint=172.17.0.5:55555 --proto_discovery_root=$PWD --use_reflection=false --full_method=bmi.BmiService/initialize
+echo '{}' | java -jar polyglot.jar --command=call --endpoint=172.17.0.5:55555 --proto_discovery_root=$PWD --use_reflection=false --full_method=bmi.BmiService/update
+echo '{}' | java -jar polyglot.jar --command=call --endpoint=172.17.0.5:55555 --proto_discovery_root=$PWD --use_reflection=false --full_method=bmi.BmiService/getCurrentTime
+echo '{name:"Q"}' | java -jar polyglot.jar --command=call --endpoint=172.17.0.5:55555 --proto_discovery_root=$PWD --use_reflection=false --full_method=bmi.BmiService/getValue
 ```
+(where `172.17.0.5` is the IP of the Docker container)
 
 Use client
 
@@ -32,3 +36,13 @@ mymodel = BmiClientDocker(image='ewatercycle/walrus-grpc4bmi', image_port=55555)
 # Config
 
 Walrus does not use a config file, bmi requires it. See `./walrus.yml` for example config file which works with https://github.com/ClaudiaBrauer/WALRUS/tree/master/demo/data
+
+
+# Generated cpp 
+
+The [library(grpc)](https://github.com/nfultz/grpc) is missing reflection and error handling, we could use `protoc` to generate cpp server stub and call R functions in the stub.
+
+```
+protoc -I . --grpc_out=. --plugin=protoc-gen-grpc=`which grpc_cpp_plugin` ./bmi.proto
+protoc -I . --cpp_out=. ./bmi.proto
+```

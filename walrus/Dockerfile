@@ -5,7 +5,6 @@ RUN apt-get update \
 	&& apt-get install -y --no-install-recommends \
 		libcurl4-openssl-dev curl \
         git \
-        # protobuf-compiler libprotobuf-dev libprotoc-dev \
         build-essential autoconf libtool pkg-config dh-autoreconf \
 	&& rm -rf /var/lib/apt/lists/*
 
@@ -18,12 +17,13 @@ RUN install.r configr R6 && installGithub.r ClaudiaBrauer/WALRUS nfultz/grpc
 
 RUN mkdir /opt/walrus-bmi
 
-# for debug
-RUN apt update && apt install -y nano
 WORKDIR /opt/walrus-bmi
 
+# TODO remove example dataset+config when bmi-server can be run from /data
+# Copy example config + dataset
+COPY walrus.yml /opt/walrus-bmi/
+RUN mkdir /opt/walrus-bmi/data/ && cd /opt/walrus-bmi/data/ && wget https://github.com/ClaudiaBrauer/WALRUS/raw/master/demo/data/PEQ_Hupsel.dat && cd -
 #RUN mkdir /data
-
 #WORKDIR /data
 
 COPY bmi.proto *.r /opt/walrus-bmi/
