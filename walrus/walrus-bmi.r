@@ -19,8 +19,8 @@ WalrusBmi <- R6Class(
     forc = NULL,
     pars = NULL,
     mod = NULL,
-    current = 1,
-    vars = data.frame(
+    current = 0,
+    vars = list(
       label=c(
         'actual evapotranspiration', 'discharge', 'groundwater drainage/surface water infiltration', 'quickflow',
         'storage deficit', 'equilibrium storage deficit', 'groundwater depth', 'level quickflow reservoir',
@@ -53,13 +53,19 @@ WalrusBmi <- R6Class(
       return()
     },
     update = function() {
-      private$current <- private$current + private$step
+      private$current <- private$current + private$config$step
+    },
+    updateUntil = function(until) {
+      private$current <- until
+    },
+    updateFrac = function(frac) {
+      private$current <- private$config$start + round((private$config$end - private$config$start) * frac)
     },
 
     getComponentName = function() return('WALRUS'),
     getInputVarNameCount = function() return(0),
-    getOutputVarNameCount = function() return(10),
-    getInputVarNames = function() return(vector('character')),
+    getOutputVarNameCount = function() return(length(private$vars$name)),
+    getInputVarNames = function() return(list()),
     # TODO map to CSDMS Standard Names
     getOutputVarNames = function() return(private$vars$name),
 
@@ -68,23 +74,20 @@ WalrusBmi <- R6Class(
     getStartTime = function() return(private$config$start),
     getEndTime = function() return(private$config$end),
     getCurrentTime = function() {
-        return(private$start + private$step * private$current)
+        return(private$current)
     },
 
     getVarGrid = function(name) {
         return(which(private$vars$name == name))
     },
     getVarType = function(name) {
-        grid_id = self$getVarGrid(name)
-        return(private$vars$type[grid_id])
+        return(private$vars$type[private$vars$name == name])
     },
     getVarItemSize = function(name) {
-        grid_id = self$getVarGrid(name)
-        return(private$vars$size[grid_id])
+      return(private$vars$size[private$vars$name == name])
     },
     getVarUnits = function(name) {
-        grid_id = self$getVarGrid(name)
-        return(private$vars$unit[grid_id])
+      return(private$vars$unit[private$vars$name == name])
     },
     getVarNBytes = function(name) {
         # grid size is 1x1x1 so same as single value
@@ -92,7 +95,8 @@ WalrusBmi <- R6Class(
     },
 
     getValue = function(name) {
-        return(private$mod[private$current, name])
+        offset <- private$current - private$config$start
+        return(private$mod[offset, name])
     },
     # Skip getValuePtr, getValueAtIndices and setValue*, model does not support it
 

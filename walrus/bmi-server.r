@@ -44,7 +44,7 @@ impl$runModel$f <- function(request) {
 
 impl$getComponentName$f <- function(request) {
   name = model$getComponentName()
-  new(bmi.GetComponentNameResponse, name=as.character(name))
+  new(bmi.GetComponentNameResponse, name=name)
 }
 
 impl$getInputVarNameCount$f <- function(request) {
@@ -59,12 +59,12 @@ impl$getOutputVarNameCount$f <- function(request) {
 
 impl$getInputVarNames$f <- function(request) {
     names = model$getInputVarNames()
-    new(bmi.GetVarNamesResponse, names=as.vector(names))
+    new(bmi.GetVarNamesResponse, names=names)
 }
 
 impl$getOutputVarNames$f <- function(request) {
     names = model$getOutputVarNames()
-    new(bmi.GetVarNamesResponse, names=as.vector(names))
+    new(bmi.GetVarNamesResponse, names=names)
 }
 
 impl$getTimeUnits$f <- function(request) {
