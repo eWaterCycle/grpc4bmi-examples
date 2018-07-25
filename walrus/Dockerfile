@@ -13,7 +13,8 @@ RUN echo 'source("https://raw.githubusercontent.com/r-lib/remotes/master/install
 RUN git clone --recursive -b $(curl -L https://grpc.io/release) https://github.com/grpc/grpc && \
   cd /grpc && make -j 4 && cd third_party/protobuf && make install && cd - && make install && ldconfig && cd /
 
-RUN install.r configr R6 && installGithub.r ClaudiaBrauer/WALRUS nfultz/grpc
+# TODO Use nfultz/grpc instead of eWaterCycle/grpc@index-out-of-bounds when proper fix made instead of workaround
+RUN install.r configr R6 && installGithub.r ClaudiaBrauer/WALRUS eWaterCycle/grpc@index-out-of-bounds
 
 RUN mkdir /opt/walrus-bmi
 

@@ -33,6 +33,12 @@ from grpc4bmi.bmi_client_subproc import BmiClientDocker
 mymodel = BmiClientDocker(image='ewatercycle/walrus-grpc4bmi', image_port=55555)
 ```
 
+To run server in debug mode use
+```bash
+docker run -ti ewatercycle/walrus-grpc4bmi bash
+GRPC_TRACE=api GRPC_VERBOSITY=DEBUG ./bmi-server.r
+```
+
 # Config
 
 Walrus does not use a config file, bmi requires it. See `./walrus.yml` for example config file which works with https://github.com/ClaudiaBrauer/WALRUS/tree/master/demo/data
