@@ -27,9 +27,9 @@ WalrusBmi <- R6Class(
         'surface water level', 'wetness index'
       ),
       name=c('ETact', 'Q', 'fGS', 'fQS', 'dV', 'dVeq', 'dG', 'hQ', 'hS', 'w'),
-      type=rep('float32', 10),
+      type=rep('float64', 10),
       unit=c('mm/h', 'mm/h', 'mm/h', 'mm/h', 'mm', 'mm', 'mm', 'mm', 'mm', '-'),
-      size=rep(8, 10)
+      size=rep(8L, 10)
     )
   ),
   public = list(

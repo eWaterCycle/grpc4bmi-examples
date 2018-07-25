@@ -119,8 +119,15 @@ impl$getVarNBytes$f <- function(request) {
 
 impl$getValue$f <- function(request) {
    values = model$getValue(request$name)
-   # TODO determine type of values and set as values_int , values_float or values_double
-   new(bmi.GetValueResponse, values=values, shape=dim(values))
+   vvalues = as.vector(values)
+   to = typeof(vvalues)
+   if (to == "double") {
+     new(bmi.GetValueResponse, values_double=vvalues, shape=dim(values))
+   } else if (to == "integer") {
+     new(bmi.GetValueResponse, values_int=vvalues, shape=dim(values))
+   } else {
+     stop('Unsupported value format')
+   }
 }
 
 impl$getValuePtr$f <- function(request) {
@@ -130,13 +137,29 @@ impl$getValuePtr$f <- function(request) {
 
 impl$getValueAtIndices$f <- function(request) {
   values = model$getValueAtIndices(request$name, request$indices)
-   # TODO determine type of values and set as values_int , values_float or values_double
-  new(bmi.GetValueAtIndicesResponse, values, shape=dim(values))
+  vvalues = as.vector(values)
+  to = typeof(vvalues)
+  if (to == "double") {
+    new(bmi.GetValueAtIndicesResponse, values_double=vvalues, shape=dim(values))
+  } else if (to == "integer") {
+    new(bmi.GetValueAtIndicesResponse, values_int=vvalues, shape=dim(values))
+  } else {
+    stop('Unsupported value format')
+  }
 }
 
 impl$setValue$f <- function(request) {
-  # TODO convert request$values_* to values
-  model$setValue(request$name, request$values)
+  if (request$has('values_int')) {
+    values = request$values_int
+  } else if (request$has('values_float')) {
+    values = request$values_float
+  } else if (request$has('values_double')) {
+    values = request$values_double
+  } else {
+    stop('Unsupported value format')
+  }
+  dim(values) <- request$shape
+  model$setValue(request$name, values)
   new(bmi.Empty)
 }
 
@@ -146,8 +169,16 @@ impl$setValuePtr$f <- function(request) {
 }
 
 impl$setValueAtIndices$f <- function(request) {
-  # TODO convert request$values_* to values
-  model$setValueAtIndices(request$name, request$indices, request$values)
+  if (request$has('values_int')) {
+    values = request$values_int
+  } else if (request$has('values_float')) {
+    values = request$values_float
+  } else if (request$has('values_double')) {
+    values = request$values_double
+  } else {
+    stop('Unsupported value format')
+  }
+  model$setValueAtIndices(request$name, request$indices, values)
   new(bmi.Empty)
 }
 
