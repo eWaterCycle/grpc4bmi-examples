@@ -14,7 +14,7 @@ RUN git clone --recursive -b $(curl -L https://grpc.io/release) https://github.c
   cd /grpc && make -j 4 && cd third_party/protobuf && make install && cd - && make install && ldconfig && cd /
 
 # TODO Use nfultz/grpc instead of eWaterCycle/grpc@index-out-of-bounds when proper fix made instead of workaround
-RUN install.r configr R6 && installGithub.r ClaudiaBrauer/WALRUS eWaterCycle/grpc@index-out-of-bounds
+RUN install.r configr R6 && installGithub.r ClaudiaBrauer/WALRUS eWaterCycle/grpc-r@index-out-of-bounds
 
 RUN mkdir /opt/walrus-bmi
 
