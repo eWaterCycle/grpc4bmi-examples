@@ -14,25 +14,21 @@ RUN git clone --recursive -b $(curl -L https://grpc.io/release) https://github.c
   cd /grpc && make -j 4 && cd third_party/protobuf && make install && cd - && make install && ldconfig && cd /
 
 # TODO Use nfultz/grpc instead of eWaterCycle/grpc@index-out-of-bounds when proper fix made instead of workaround
-RUN install.r configr R6 && installGithub.r ClaudiaBrauer/WALRUS eWaterCycle/grpc-r@index-out-of-bounds
+RUN installGithub.r ClaudiaBrauer/WALRUS eWaterCycle/grpc4bmi-r
 
 RUN mkdir /opt/walrus-bmi
 
 WORKDIR /opt/walrus-bmi
 
-# TODO remove example dataset+config when bmi-server can be run from /data
-# Copy example config + dataset
-COPY walrus.yml /opt/walrus-bmi/
-RUN mkdir /opt/walrus-bmi/data/ && cd /opt/walrus-bmi/data/ && wget https://github.com/ClaudiaBrauer/WALRUS/raw/master/demo/data/PEQ_Hupsel.dat && cd -
-#RUN mkdir /data
-#WORKDIR /data
+RUN mkdir /data
+WORKDIR /data
 
-COPY bmi.proto *.r /opt/walrus-bmi/
+COPY walrus-bmi.r /opt/walrus-bmi/walrus-bmi.r
 
-ENV BMI_MODULE=walrus-bmi.r
+ENV BMI_MODULE=/opt/walrus-bmi/walrus-bmi.r
 ENV BMI_CLASS=WalrusBmi
 ENV BMI_PORT=55555
 
-CMD ["/opt/walrus-bmi/bmi-server.r"]
+CMD ["Rscript", "-e", "grpc4bmi::run()"]
 
 EXPOSE 55555

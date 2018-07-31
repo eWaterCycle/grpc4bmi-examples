@@ -2,7 +2,7 @@
 library(WALRUS)
 library(configr)
 library(R6)
-source('abstract-bmi.r')
+library(grpc4bmi)
 
 hoursSince1970toDate = function(hours) {
    # hours since 1970
