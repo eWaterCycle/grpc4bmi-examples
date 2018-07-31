@@ -36,7 +36,7 @@ mymodel = BmiClientDocker(image='ewatercycle/walrus-grpc4bmi', image_port=55555)
 To run server in debug mode use
 ```bash
 docker run -ti ewatercycle/walrus-grpc4bmi bash
-GRPC_TRACE=api GRPC_VERBOSITY=DEBUG ./bmi-server.r
+GRPC_TRACE=api GRPC_VERBOSITY=DEBUG Rscript -e grpc4bmi::run
 ```
 
 # Config
