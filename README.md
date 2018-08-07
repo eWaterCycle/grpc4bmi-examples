@@ -6,18 +6,27 @@ git submodule update --init --recursive
 ```
 
 Build the docker containers in subfolders
-In pcrg:
 ```
-docker build -t pcrg-grpc4bmi .
-```
-In wflow:
-```
-docker build -t wflow-grpc4bmi .
+docker build -t pcrg-grpc4bmi pcrglob/
+docker build -t wflow-grpc4bmi wflow/
 ```
 
 Install dependencies
 ```
-pip install grpc4bmi jupyterlab matplotlib
+sudo apt install subversion
+pip install -r requirements.txt
+```
+
+Install helper module
+
+```
+cd psfetch
+flit install -s
+cd ..
 ```
 
 Run notebooks
+
+```
+jupyter lab
+```

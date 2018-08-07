@@ -6,7 +6,7 @@ MAINTAINER Gijs van den Oord <g.vandenoord@esciencecenter.nl>
 RUN pip install grpc4bmi
 
 # Set environment
-WORKDIR /opt
+WORKDIR /data/input
 ENV BMI_MODULE=wflow.wflow_bmi
 ENV BMI_CLASS=wflowbmi_csdms
 ENV BMI_PORT=55555
