@@ -8,4 +8,4 @@ author = "Stefan Verhoeven"
 author-email = "s.verhoeven@esciencecenter.nl"
 home-page = "https://github.com/eWaterCycle"
 classifiers = ["License :: OSI Approved :: Apache Software License"]
-
+requires = ["ruamel.yaml"]

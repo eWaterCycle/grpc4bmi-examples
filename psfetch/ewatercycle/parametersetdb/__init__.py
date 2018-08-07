@@ -1,7 +1,8 @@
 import configparser
 from subprocess import check_call
+from urllib.request import urlopen
 
-import requests
+from ruamel.yaml import YAML
 
 
 class CaseConfigParser(configparser.ConfigParser):
@@ -23,9 +24,8 @@ class SubversionCopier:
 
 def fetch(url):
     """Fetches text of url"""
-    r = requests.get(url)
-    r.raise_for_status()
-    return r.text
+    with urlopen(url) as response:
+        return response.read()
 
 
 class IniConfig:
@@ -38,6 +38,18 @@ class IniConfig:
     def save(self, target):
         with open(target, 'w') as f:
             self.config.write(f)
+
+
+class YamlConfig:
+    yaml = YAML()
+
+    def __init__(self, source):
+        body = fetch(source)
+        self.config = self.yaml.load(body)
+
+    def save(self, target):
+        with open(target, 'w') as f:
+            self.yaml.dump(self.config, f)
 
 
 class Parameterset:
@@ -64,6 +76,10 @@ models = {
     'wflow': {
         'name': 'wflow',
         'docker': 'wflow-grpc4bmi:latest'
+    },
+    'WALRUS': {
+        'name': 'WALRUS',
+        'docker': 'ewatercycle/walrus-grpc4bmi'
     }
 }
 
@@ -91,9 +107,21 @@ class Parametersetdb:
             'format': 'ini',
             'url': 'https://github.com/openstreams/wflow/raw/master/examples/wflow_rhine_sbm/wflow_sbm.ini'
         },
+    }, {
+        'model': 'WALRUS',
+        'name': 'hupsel',
+        'datafiles': {
+            'format': 'svn',
+            'url': 'https://github.com/ClaudiaBrauer/WALRUS/trunk/demo/data'
+        },
+        'config': {
+            'format': 'yaml',
+            'url': "data:text/plain,data: data/PEQ_Hupsel.dat\nparameters:\n  cW: 200\n  cV: 4\n  cG: 5.0e+6\n  cQ: 10\n  cS: 4\n  dG0: 1250\n  cD: 1500\n  aS: 0.01\n  st: loamy_sand\nstart: 367416 # 2011120000\nend: 368904 # 2012020000\nstep: 1\n"
+        }
     }]
     configs = {
-        'ini': IniConfig
+        'ini': IniConfig,
+        'yaml': YamlConfig,
     }
     copiers = {
         'svn': SubversionCopier
