@@ -103,8 +103,9 @@ WalrusBmi <- R6Class(
     getGridSize = function(grid_id) return(1),
     getGridType = function(grid_id) return('uniform_rectilinear'),
     getGridRank = function(grid_id) return(0),
-    getGridShape = function(grid_id) return(c(1))
+    getGridShape = function(grid_id) return(c(1)),
 
+    bmi_finalize = function() return()
     # Skip rest of getGrid*, model grid rank is scalar
   )
 )
