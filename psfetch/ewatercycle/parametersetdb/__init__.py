@@ -25,7 +25,7 @@ class SubversionCopier:
 def fetch(url):
     """Fetches text of url"""
     with urlopen(url) as response:
-        return response.read()
+        return response.read().decode()
 
 
 class IniConfig:
