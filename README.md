@@ -9,6 +9,7 @@ Build the docker containers in subfolders
 ```
 docker build -t pcrg-grpc4bmi pcrglob/
 docker build -t wflow-grpc4bmi wflow/
+docker build -t ewatercycle/walrus-grpc4bmi walrus
 ```
 
 Install dependencies
