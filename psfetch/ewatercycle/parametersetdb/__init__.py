@@ -71,11 +71,11 @@ class Parameterset:
 models = {
     'PCR-GLOBWB': {
         'name': 'PCR-GLOBWB',
-        'docker': 'pcrg-grpc4bmi:latest',
+        'docker': 'ewatercycle/pcrg-grpc4bmi:latest',
     },
     'wflow': {
         'name': 'wflow',
-        'docker': 'wflow-grpc4bmi:latest'
+        'docker': 'ewatercycle/wflow-grpc4bmi:latest'
     },
     'WALRUS': {
         'name': 'WALRUS',
