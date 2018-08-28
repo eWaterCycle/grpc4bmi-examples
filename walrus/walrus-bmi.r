@@ -63,8 +63,6 @@ WalrusBmi <- R6Class(
     },
 
     getComponentName = function() return('WALRUS'),
-    getInputVarNameCount = function() return(0),
-    getOutputVarNameCount = function() return(length(private$vars$name)),
     getInputVarNames = function() return(list()),
     # TODO map to CSDMS Standard Names
     getOutputVarNames = function() return(private$vars$name),
