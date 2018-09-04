@@ -97,7 +97,7 @@ WalrusBmi <- R6Class(
         return(private$mod[offset, name])
     },
     getValueAtIndices = function(name, indices) {
-        if (!identical(indices, c(0))) {
+        if (length(indices) != 1 || indices[1] != 0) {
             stop('Can only return value at index 0')
         }
 
