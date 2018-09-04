@@ -96,6 +96,14 @@ WalrusBmi <- R6Class(
         offset <- private$current - private$config$start
         return(private$mod[offset, name])
     },
+    getValueAtIndices = function(name, indices) {
+        if (!identical(indices, c(0))) {
+            stop('Can only return value at index 0')
+        }
+
+        offset <- private$current - private$config$start
+        return(private$mod[offset, name])
+    },
     # Skip getValuePtr, getValueAtIndices and setValue*, model does not support it
 
     getGridSize = function(grid_id) return(1),
