@@ -1,7 +1,7 @@
 #grpc4bmi
-git+https://github.com/eWaterCycle/grpc4bmi@write-output-as-user#egg=grpc4bmi
+git+https://github.com/eWaterCycle/grpc4bmi#egg=grpc4bmi
+git+https://github.com/eWaterCycle/parametersetdb#egg=ewatercylce.parametersetdb
 jupyterlab
 matplotlib
 docker
 requests
-flit
