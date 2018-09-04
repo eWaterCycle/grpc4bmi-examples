@@ -97,10 +97,6 @@ WalrusBmi <- R6Class(
         return(private$mod[offset, name])
     },
     getValueAtIndices = function(name, indices) {
-        if (length(indices) != 1 || indices[1] != 0) {
-            stop('Can only return value at index 0')
-        }
-
         offset <- private$current - private$config$start
         return(private$mod[offset, name])
     },
