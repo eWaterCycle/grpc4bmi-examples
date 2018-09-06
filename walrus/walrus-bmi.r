@@ -76,7 +76,7 @@ WalrusBmi <- R6Class(
     },
 
     getVarGrid = function(name) {
-        return(0)
+        return(0L)
     },
     getVarType = function(name) {
         return(private$vars$type[private$vars$name == name])
@@ -88,7 +88,7 @@ WalrusBmi <- R6Class(
       return(private$vars$unit[private$vars$name == name])
     },
     getVarNBytes = function(name) {
-        # grid size is 1x1x1 so same as single value
+        # grid size is 1x1 so same as single value
         return(self$getVarUnits(name));
     },
 
@@ -102,10 +102,10 @@ WalrusBmi <- R6Class(
     },
     # Skip getValuePtr, getValueAtIndices and setValue*, model does not support it
 
-    getGridSize = function(grid_id) return(1),
+    getGridSize = function(grid_id) return(1L),
     getGridType = function(grid_id) return('uniform_rectilinear'),
-    getGridRank = function(grid_id) return(0),
-    getGridShape = function(grid_id) return(c(1)),
+    getGridRank = function(grid_id) return(0L),
+    getGridShape = function(grid_id) return(c(1L, 1L)),
 
     bmi_finalize = function() return()
     # Skip rest of getGrid*, model grid rank is scalar
