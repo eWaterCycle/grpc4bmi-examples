@@ -76,7 +76,7 @@ WalrusBmi <- R6Class(
     },
 
     getVarGrid = function(name) {
-        return(which(private$vars$name == name))
+        return(0)
     },
     getVarType = function(name) {
         return(private$vars$type[private$vars$name == name])
