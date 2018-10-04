@@ -1,5 +1,5 @@
 # Pull model image
-FROM ewatercycle/wflow:latest
+FROM ewatercycle/wflow:bmi_fixes
 MAINTAINER Gijs van den Oord <g.vandenoord@esciencecenter.nl>
 
 # Install grpc4bmi
