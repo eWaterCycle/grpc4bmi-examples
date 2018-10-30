@@ -103,11 +103,13 @@ WalrusBmi <- R6Class(
     # Skip getValuePtr, getValueAtIndices and setValue*, model does not support it
 
     getGridSize = function(grid_id) return(1L),
-    getGridType = function(grid_id) return('uniform_rectilinear'),
-    getGridRank = function(grid_id) return(0L),
+    getGridType = function(grid_id) return('rectilinear'),
+    getGridRank = function(grid_id) return(1L),
     getGridShape = function(grid_id) return(c(1L, 1L)),
+    getGridX = function(grid_id) return(c(private$config$centroid$lon)),
+    getGridY = function(grid_id) return(c(private$config$centroid$lat)),
+    getGridZ = function(grid_id) return(c()),
 
     bmi_finalize = function() return()
-    # Skip rest of getGrid*, model grid rank is scalar
   )
 )
