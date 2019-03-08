@@ -15,8 +15,10 @@ RUN mkdir /data
 WORKDIR /data
 VOLUME /data
 
-CMD ["run-bmi-server", "--lang", "R", "--path", "/opt/walrus-bmi/walrus-bmi.r", "--name", "WalrusBmi", "--port", "55555"]
+ENV BMI_PORT=55555
+
+CMD ["run-bmi-server", "--lang", "R", "--path", "/opt/walrus-bmi/walrus-bmi.r", "--name", "WalrusBmi"]
 
 EXPOSE 55555
 
-HEALTHCHECK --interval=1s --start-period=15s --timeout=3s CMD wget --quiet --tries=1 --spider http://localhost:55555 || exit 1
+HEALTHCHECK --interval=1s --start-period=15s --timeout=3s CMD wget --quiet --tries=1 --spider http://localhost:$BMI_PORT || exit 1
