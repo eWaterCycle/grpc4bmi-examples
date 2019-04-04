@@ -14,7 +14,8 @@ The Docker images are automatically build on https://hub.docker.com/u/ewatercycl
 Build the Docker images locally in subfolders
 ```
 docker build -t ewatercycle/pcrg-grpc4bmi pcrglob/
-docker build -t ewatercycle/wflow-grpc4bmi wflow/
+docker build -t ewatercycle/wflow-sbm-grpc4bmi wflow-sbm/
+docker build -t ewatercycle/wflow-topoflex-grpc4bmi wflow-topoflex/
 docker build -t ewatercycle/walrus-grpc4bmi walrus/
 ```
 
