@@ -55,13 +55,6 @@ WalrusBmi <- R6Class(
     update = function() {
       private$current <- private$current + private$config$step
     },
-    updateUntil = function(until) {
-      private$current <- until
-    },
-    updateFrac = function(frac) {
-      private$current <- private$config$start + round((private$config$end - private$config$start) * frac)
-    },
-
     getComponentName = function() return('WALRUS'),
     getInputVarNames = function() return(list()),
     # TODO map to CSDMS Standard Names
@@ -89,9 +82,11 @@ WalrusBmi <- R6Class(
     },
     getVarNBytes = function(name) {
         # grid size is 1x1 so same as single value
-        return(self$getVarUnits(name));
+        return(self$getVarItemSize(name));
     },
-
+    getVarLocation = function() {
+        return('node');
+    },
     getValue = function(name) {
         offset <- private$current - private$config$start
         return(private$mod[offset, name])
@@ -100,16 +95,13 @@ WalrusBmi <- R6Class(
         offset <- private$current - private$config$start
         return(private$mod[offset, name])
     },
-    # Skip getValuePtr, getValueAtIndices and setValue*, model does not support it
-
     getGridSize = function(grid_id) return(1L),
-    getGridType = function(grid_id) return('rectilinear'),
-    getGridRank = function(grid_id) return(1L),
+    getGridType = function(grid_id) return('uniform_rectilinear'),
+    getGridRank = function(grid_id) return(2L),
     getGridShape = function(grid_id) return(c(1L, 1L)),
-    getGridX = function(grid_id) return(c(private$config$centroid$lon)),
-    getGridY = function(grid_id) return(c(private$config$centroid$lat)),
-    getGridZ = function(grid_id) return(c()),
-
+    getGridSpacing = function(grid_id) return(c(0L, 0L)),
+    getGridOrigin = function(grid) return(c(private$config$centroid$lon, private$config$centroid$lat)),
     bmi_finalize = function() return()
+    # Skip getValuePtr, getValueAtIndices, setValue* and others as model does not support them
   )
 )
