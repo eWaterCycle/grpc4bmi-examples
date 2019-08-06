@@ -84,7 +84,8 @@ WalrusBmi <- R6Class(
         # grid size is 1x1 so same as single value
         return(self$getVarItemSize(name));
     },
-    getVarLocation = function() {
+    getVarLocation = function(name) {
+        # All variables are in node location
         return('node');
     },
     getValue = function(name) {
