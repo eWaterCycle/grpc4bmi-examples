@@ -1,8 +1,10 @@
+# Basic modeling inteface for WALRUS
+
 A gprc4bmi server for https://github.com/ClaudiaBrauer/WALRUS implemented in R.
 
 Docker image is build automatically at https://hub.docker.com/r/ewatercycle/walrus-grpc4bmi/
 
-# Run
+## Run
 
 Use [client](https://pypi.org/project/grpc4bmi/)
 
@@ -11,7 +13,7 @@ from grpc4bmi.bmi_client_docker import BmiClientDocker
 mymodel = BmiClientDocker(image='ewatercycle/walrus-grpc4bmi', image_port=55555)
 ```
 
-## Using universal grpc command line client
+### Using universal grpc command line client
 
 ```bash
 docker run -d -p 55555:55555 -v $PWD:/data ewatercycle/walrus-grpc4bmi
@@ -25,11 +27,11 @@ echo '{name:"Q"}' | java -jar polyglot.jar --command=call --endpoint=localhost:5
 
 All the available methods can be found at https://github.com/eWaterCycle/grpc4bmi/blob/master/proto/bmi.proto
 
-# Config
+## Config
 
 Walrus does not use a config file, but bmi requires it. See `./walrus.yml` for example config file which works with https://github.com/ClaudiaBrauer/WALRUS/tree/master/demo/data
 
-# Build
+## Build
 
 ```bash
 docker build -t ewatercycle/walrus-grpc4bmi .
