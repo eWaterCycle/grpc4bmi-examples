@@ -1,9 +1,9 @@
 # Pull model image
-FROM ewatercycle/wflow:bmi_fixes
+FROM deltares/wflow:latest
 MAINTAINER Gijs van den Oord <g.vandenoord@esciencecenter.nl>
 
 # Install grpc4bmi
-RUN pip install git+https://github.com/eWaterCycle/grpc4bmi.git#egg=grpc4bmi
+RUN pip3 install grpc4bmi==0.2.1
 
 # Set environment
 WORKDIR /data/input
