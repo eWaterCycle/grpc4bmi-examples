@@ -1,5 +1,5 @@
 # Pull model image
-FROM deltares/wflow:latest
+FROM ewatercycle/wflow:2019.1
 MAINTAINER Gijs van den Oord <g.vandenoord@esciencecenter.nl>
 
 # Install grpc4bmi
