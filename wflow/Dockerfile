@@ -3,7 +3,7 @@ FROM ewatercycle/wflow:2019.1
 MAINTAINER Gijs van den Oord <g.vandenoord@esciencecenter.nl>
 
 # Install grpc4bmi
-RUN pip3 install grpc4bmi==0.2.1
+RUN pip3 install grpc4bmi==0.2.4
 
 # Set environment
 WORKDIR /data/input
