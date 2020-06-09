@@ -1,5 +1,5 @@
 # Pull model image
-FROM ewatercycle/pcr-globwb_model:bmi_fixes
+FROM ewatercycle/pcr-globwb_model:bmi_fixes_setters
 MAINTAINER Gijs van den Oord <g.vandenoord@esciencecenter.nl>
 
 # Install grpc4bmi
