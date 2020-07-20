@@ -1,8 +1,8 @@
-FROM ec-jrc/lisflood
+FROM ewatercycle/lisflood
 MAINTAINER Stefan Verhoeven <s.verhoeven@esciencecenter.nl>
 
 # Install grpc4bmi
-RUN pip install grpc4bmi==0.2.3
+RUN pip install grpc4bmi==0.2.6
 
 # Set environment
 WORKDIR /data/input
