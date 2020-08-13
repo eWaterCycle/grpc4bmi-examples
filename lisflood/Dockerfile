@@ -1,4 +1,4 @@
-FROM ewatercycle/lisflood:20.8c
+FROM ewatercycle/lisflood:20.8d
 MAINTAINER Stefan Verhoeven <s.verhoeven@esciencecenter.nl>
 
 # Install grpc4bmi
