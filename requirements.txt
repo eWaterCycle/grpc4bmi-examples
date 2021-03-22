@@ -1,5 +1,5 @@
 #grpc4bmi
-git+https://github.com/eWaterCycle/grpc4bmi#egg=grpc4bmi
+git+https://github.com/eWaterCycle/grpc4bmi@93-workdir-identity-mount#egg=grpc4bmi
 git+https://github.com/eWaterCycle/parametersetdb#egg=ewatercylce.parametersetdb
 jupyterlab
 matplotlib
