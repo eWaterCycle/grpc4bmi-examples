@@ -1,6 +1,5 @@
-#grpc4bmi
-git+https://github.com/eWaterCycle/grpc4bmi@93-workdir-identity-mount#egg=grpc4bmi
-git+https://github.com/eWaterCycle/parametersetdb#egg=ewatercylce.parametersetdb
+grpc4bmi==0.2.12
+git+https://github.com/eWaterCycle/ewatercylce
 jupyterlab
 matplotlib
 docker
