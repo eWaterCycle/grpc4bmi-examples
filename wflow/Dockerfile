@@ -10,5 +10,5 @@ WORKDIR /data/input
 ENV BMI_MODULE=wflow.wflow_bmi
 ENV BMI_CLASS=wflowbmi_csdms
 ENV BMI_PORT=55555
-ENTRYPOINT ["conda", "run", "-n", "wflow", "run-bmi-server"]
+ENTRYPOINT ["/opt/conda/envs/wflow/bin/run-bmi-server"]
 EXPOSE 55555

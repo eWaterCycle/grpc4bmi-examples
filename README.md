@@ -32,3 +32,18 @@ Run notebooks
 ```
 jupyter lab
 ```
+
+# Test with
+
+```python
+import ewatercycle.parameter_sets
+ps = ewatercycle.parameter_sets.get_parameter_set('wflow_rhine_sbm_nc')
+import ewatercycle.models
+model = ewatercycle.models.Wflow(version='2020.1.2', parameter_set=ps)
+cfg_file, cfg_dir = model.setup()
+model.initialize(cfg_file)
+model.update()
+model.output_var_names
+print(model.bmi.logs())
+model.finalize()
+```
