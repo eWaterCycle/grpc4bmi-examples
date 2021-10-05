@@ -1,5 +1,5 @@
 # Pull model image
-FROM ewatercycle/wflow:2020.1.1
+FROM ewatercycle/wflow:2020.1.2
 LABEL maintainer=s.verhoeven@esciencecenter.nl
 
 # Install grpc4bmi
