@@ -1,6 +1,6 @@
 # Pull model image
-FROM ewatercycle/pcr-globwb_model:bmi_fixes_setters
-MAINTAINER Gijs van den Oord <g.vandenoord@esciencecenter.nl>
+FROM jpmaerts/pcr-globwb_model:bmi_fixes_conda
+MAINTAINER Jerom Aerts <j.p.m.aerts@tudelft.nl>
 
 # Install grpc4bmi
 RUN pip install grpc4bmi==0.2.4
