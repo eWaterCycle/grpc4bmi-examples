@@ -2,6 +2,10 @@
 FROM jpmaerts/pcr-globwb_model:bmi_fixes_conda
 MAINTAINER Jerom Aerts <j.p.m.aerts@tudelft.nl>
 
+# Activate conda environment
+# Override default shell and use bash
+# SHELL ["conda", "run", "-n", "pcrglobwb_python3", "/bin/bash", "-c"]
+# ENV PYTHONPATH /usr/bin/python3/
 # Install grpc4bmi
 RUN pip install grpc4bmi==0.2.4
 
