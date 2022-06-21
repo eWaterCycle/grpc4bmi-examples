@@ -6,8 +6,9 @@ MAINTAINER Jerom Aerts <j.p.m.aerts@tudelft.nl>
 # Override default shell and use bash
 # SHELL ["conda", "run", "-n", "pcrglobwb_python3", "/bin/bash", "-c"]
 # ENV PYTHONPATH /usr/bin/python3/
+
 # Install grpc4bmi
-RUN pip install grpc4bmi==0.2.4
+RUN conda run -n wflow pip install grpc4bmi==0.2.*
 
 # Set environment
 WORKDIR /opt
