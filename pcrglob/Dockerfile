@@ -1,14 +1,9 @@
 # Pull model image
 FROM jpmaerts/pcr-globwb_model:bmi_fixes_conda
-MAINTAINER Jerom Aerts <j.p.m.aerts@tudelft.nl>
-
-# Activate conda environment
-# Override default shell and use bash
-# SHELL ["conda", "run", "-n", "pcrglobwb_python3", "/bin/bash", "-c"]
-# ENV PYTHONPATH /usr/bin/python3/
+LABEL maintainer="Jerom Aerts <j.p.m.aerts@tudelft.nl>"
 
 # Install grpc4bmi
-RUN conda run -n wflow pip install grpc4bmi==0.2.*
+RUN conda run -n pcrglobwb_python3 pip install git+https://github.com/eWaterCycle/grpc4bmi.git#egg=grpc4bmi
 
 # Set environment
 WORKDIR /opt
