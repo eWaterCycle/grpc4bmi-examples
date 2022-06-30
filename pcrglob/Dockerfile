@@ -4,7 +4,7 @@ LABEL maintainer="Jerom Aerts <j.p.m.aerts@tudelft.nl>"
 
 # Install grpc4bmi
 RUN conda run -n pcrglobwb_python3 pip install protobuf==3.20.*
-RUN conda run -n pcrglobwb_python3 pip install grpc4bmi==0.2.14
+RUN conda run -n pcrglobwb_python3 pip install grpc4bmi==0.2.*
 
 # Set environment
 WORKDIR /opt
