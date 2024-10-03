@@ -1,8 +1,8 @@
 FROM r-base
 LABEL maintainer="Stefan Verhoeven <s.verhoeven@esciencecenter.nl>"
 
-RUN apt update && apt install -t unstable -y python3-dev python3-pip git && \
-  pip3 install git+https://github.com/eWaterCycle/grpc4bmi.git@0.2.x#egg=grpc4bmi[R]
+RUN apt update && apt install -t unstable -y python3-dev python3-pip git 
+RUN pip3 install --break-system-packages grpc4bmi[R]
 
 RUN install.r remotes && installGithub.r ClaudiaBrauer/WALRUS eWaterCycle/bmi-r
 
