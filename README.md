@@ -16,6 +16,7 @@ Build the Docker images locally in subfolders
 docker build -t ewatercycle/pcrg-grpc4bmi pcrglob/
 docker build -t ewatercycle/wflow-grpc4bmi wflow/
 docker build -t ewatercycle/walrus-grpc4bmi walrus/
+docker build -t ewatercycle/lisflood-grpc4bmi lisflood/
 ```
 
 Install dependencies
@@ -30,4 +31,19 @@ Run notebooks
 
 ```
 jupyter lab
+```
+
+# Test with
+
+```python
+import ewatercycle.parameter_sets
+ps = ewatercycle.parameter_sets.get_parameter_set('wflow_rhine_sbm_nc')
+import ewatercycle.models
+model = ewatercycle.models.Wflow(version='2020.1.2', parameter_set=ps)
+cfg_file, cfg_dir = model.setup()
+model.initialize(cfg_file)
+model.update()
+model.output_var_names
+print(model.bmi.logs())
+model.finalize()
 ```
