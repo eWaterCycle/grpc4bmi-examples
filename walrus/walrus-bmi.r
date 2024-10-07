@@ -55,54 +55,57 @@ WalrusBmi <- R6Class(
     update = function() {
       private$current <- private$current + private$config$step
     },
-    getComponentName = function() return('WALRUS'),
-    getInputVarNames = function() return(list()),
+    update_until = function(time) {
+      private$current <- time
+    },
+    get_component_name = function() return('WALRUS'),
+    get_input_var_names = function() return(list()),
     # TODO map to CSDMS Standard Names
-    getOutputVarNames = function() return(private$vars$name),
+    get_output_var_names = function() return(private$vars$name),
 
-    getTimeUnits = function() return('hours since 1970-01-01 00:00:00.0 00:00'),
-    getTimeStep = function() return(private$config$step),
-    getStartTime = function() return(private$config$start),
-    getEndTime = function() return(private$config$end),
-    getCurrentTime = function() {
-        return(private$current)
+    get_time_units = function() return('hours since 1970-01-01 00:00:00.0 00:00'),
+    get_time_step = function() return(private$config$step),
+    get_start_time = function() return(private$config$start),
+    get_end_time = function() return(private$config$end),
+    get_current_time = function() {
+      return(private$current)
     },
 
-    getVarGrid = function(name) {
-        return(0L)
+    get_var_grid = function(name) {
+      return(0L)
     },
-    getVarType = function(name) {
-        return(private$vars$type[private$vars$name == name])
+    get_var_type = function(name) {
+      return(private$vars$type[private$vars$name == name])
     },
-    getVarItemSize = function(name) {
+    get_var_item_size = function(name) {
       return(private$vars$size[private$vars$name == name])
     },
-    getVarUnits = function(name) {
+    get_var_units = function(name) {
       return(private$vars$unit[private$vars$name == name])
     },
-    getVarNBytes = function(name) {
-        # grid size is 1x1 so same as single value
-        return(self$getVarItemSize(name));
+    get_var_nbytes = function(name) {
+      # grid size is 1x1 so same as single value
+      return(self$get_var_item_size(name));
     },
-    getVarLocation = function(name) {
-        # All variables are in node location
-        return('node');
+    get_var_location = function(name) {
+      # All variables are in node location
+      return('node');
     },
-    getValue = function(name) {
-        offset <- private$current - private$config$start
-        return(private$mod[offset, name])
+    get_value = function(name) {
+      offset <- private$current - private$config$start
+      return(private$mod[offset, name])
     },
-    getValueAtIndices = function(name, indices) {
-        offset <- private$current - private$config$start
-        return(private$mod[offset, name])
+    get_value_at_indices = function(name, indices) {
+      offset <- private$current - private$config$start
+      return(private$mod[offset, name])
     },
-    getGridSize = function(grid_id) return(1L),
-    getGridType = function(grid_id) return('uniform_rectilinear'),
-    getGridRank = function(grid_id) return(2L),
-    getGridShape = function(grid_id) return(c(1L, 1L)),
-    getGridSpacing = function(grid_id) return(c(0L, 0L)),
-    getGridOrigin = function(grid) return(c(private$config$centroid$lon, private$config$centroid$lat)),
+    get_grid_size = function(grid_id) return(1L),
+    get_grid_type = function(grid_id) return('uniform_rectilinear'),
+    get_grid_rank = function(grid_id) return(2L),
+    get_grid_shape = function(grid_id) return(c(1L, 1L)),
+    get_grid_spacing = function(grid_id) return(c(0L, 0L)),
+    get_grid_origin = function(grid) return(c(private$config$centroid$lon, private$config$centroid$lat)),
     bmi_finalize = function() return()
     # Skip getValuePtr, getValueAtIndices, setValue* and others as model does not support them
-  )
+    )
 )
