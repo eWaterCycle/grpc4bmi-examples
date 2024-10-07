@@ -60,8 +60,10 @@ WalrusBmi <- R6Class(
     },
     get_component_name = function() return('WALRUS'),
     get_input_var_names = function() return(list()),
+    get_input_item_count = function() return(0L),
     # TODO map to CSDMS Standard Names
     get_output_var_names = function() return(private$vars$name),
+    get_output_item_count = function() return(length(private$vars$name)),
 
     get_time_units = function() return('hours since 1970-01-01 00:00:00.0 00:00'),
     get_time_step = function() return(private$config$step),
