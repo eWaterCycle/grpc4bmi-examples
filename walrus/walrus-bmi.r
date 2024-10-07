@@ -77,7 +77,7 @@ WalrusBmi <- R6Class(
     get_var_type = function(name) {
       return(private$vars$type[private$vars$name == name])
     },
-    get_var_item_size = function(name) {
+    get_var_itemsize = function(name) {
       return(private$vars$size[private$vars$name == name])
     },
     get_var_units = function(name) {
